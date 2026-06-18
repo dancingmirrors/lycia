@@ -1,6 +1,6 @@
 CC?=cc
 PREFIX?=/usr/local
-CFLAGS+=-Wall -Wextra -Wpedantic
+CFLAGS+=-Wall -Wextra -Wpedantic -Werror
 
 lycia: lycia.c
 
