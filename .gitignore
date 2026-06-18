@@ -1,1 +1,4 @@
-lycia
+!.github/
+!Makefile
+!lycia.c
+*
