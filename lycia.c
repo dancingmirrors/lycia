@@ -15,7 +15,7 @@
 #include <sys/types.h>
 
 #define POLL_SECONDS 30
-#define DRIVER_DIR "/sys/bus/pci/drivers/snd_hda_intel"
+#define DRIVER_DIRECTORY "/sys/bus/pci/drivers/snd_hda_intel"
 #define POWER_SAVE_NODE "/sys/module/snd_hda_intel/parameters/power_save"
 
 static volatile sig_atomic_t g_quit = 0;
@@ -103,11 +103,11 @@ static void apply_wakelock(void)
 {
     sysfs_write(POWER_SAVE_NODE, "0");
 
-    DIR *dir = opendir(DRIVER_DIR);
+    DIR *dir = opendir(DRIVER_DIRECTORY);
     if (!dir) {
         if (errno != ENOENT)
             syslog(LOG_WARNING, "opendir(%s): %s",
-                   DRIVER_DIR, strerror(errno));
+                   DRIVER_DIRECTORY, strerror(errno));
         return;
     }
 
@@ -118,7 +118,7 @@ static void apply_wakelock(void)
 
         char path[PATH_MAX];
         snprintf(path, sizeof(path), "%s/%s/power/control",
-                 DRIVER_DIR, ent->d_name);
+                 DRIVER_DIRECTORY, ent->d_name);
         sysfs_write(path, "on");
     }
     closedir(dir);
